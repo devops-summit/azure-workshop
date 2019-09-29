@@ -32,22 +32,22 @@
             "apiVersion": "2017-05-10",
             "name": "myapp",
             "properties": {
-            "mode": "Incremental",
-            "templateLink": {
-                "uri": "[variables('nestedTemplates').myapp]",
-                "contentVersion": "1.0.0.0"
-            },
-            "parameters": {
-                "applicationDnsName": {
-                "value": "[parameters('applicationDnsName')]"
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('nestedTemplates').myapp]",
+                    "contentVersion": "1.0.0.0"
                 },
-                "virtualMachineAdminUsername": {
-                "value": "[parameters('virtualMachineAdminUsername')]"
-                },
-                "virtualMachineAdminPassword": {
-                    "value": "[parameters('virtualMachineAdminPassword')]"
+                "parameters": {
+                    "applicationDnsName": {
+                        "value": "[parameters('applicationDnsName')]"
+                    },
+                    "virtualMachineAdminUsername": {
+                        "value": "[parameters('virtualMachineAdminUsername')]"
+                    },
+                    "virtualMachineAdminPassword": {
+                        "value": "[parameters('virtualMachineAdminPassword')]"
+                    }
                 }
-            }
             }
         },
         {
@@ -61,7 +61,7 @@
                     "uri": "[variables('nestedTemplates').dns]",
                     "contentVersion": "1.0.0.0"
                 },
-            " parameters": {
+                "parameters": {
                     "applicationDnsName": {
                         "value": "[parameters('applicationDnsName')]"
                     }
