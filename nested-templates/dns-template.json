@@ -14,9 +14,6 @@
             "type": "Microsoft.Network/dnszones/CNAME",
             "apiVersion": "2018-05-01",
             "name": "[concat(variables('dnsZoneName'), '/', parameters('applicationDnsName'))]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/dnszones', variables('dnsZoneName'))]"
-            ],
             "properties": {
                 "TTL": 3600,
                 "CNAMERecord": {
