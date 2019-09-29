@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "applicationDnsName": {
+            "type": "string"
+        },
+        "virtualMachineAdminUsername": {
+            "type": "string",
+            "defaultValue": "devopsadmin",
+            "metadata": {
+                "description": "User name for the Virtual Machine."
+            }
+        },
+        "virtualMachineAdminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Password for the Virtual Machine."
+            }
+        }
+    },
+    "variables": {
+      "templateLocationUri": "",
+      "nestedTemplates": {
+        "myapp": "[concat(variables('templateLocationUri'), '/nested-templates/myapp-template.json')]",
+        "dns": "[concat(variables('templateLocationUri'), '/nested-templates/dns-template.json')]"
+      }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "name": "myapp",
+            "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+                "uri": "[variables('nestedTemplates').myapp]",
+                "contentVersion": "1.0.0.0"
+            },
+            "parameters": {
+                "applicationDnsName": {
+                "value": "[parameters('applicationDnsName')]"
+                },
+                "virtualMachineAdminUsername": {
+                "value": "[parameters('virtualMachineAdminUsername')]"
+                },
+                "virtualMachineAdminPassword": {
+                    "value": "[parameters('virtualMachineAdminPassword')]"
+                }
+            }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-02-01",
+            "name": "automation",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('nestedTemplates').dns]",
+                    "contentVersion": "1.0.0.0"
+                },
+            " parameters": {
+                    "applicationDnsName": {
+                        "value": "[parameters('applicationDnsName')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": { }
+  }

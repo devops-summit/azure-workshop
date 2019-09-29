@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "applicationDnsName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "dnsZoneName": "tietoazure.com"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/dnszones/CNAME",
+            "apiVersion": "2018-05-01",
+            "name": "[concat(variables('dnsZoneName'), '/', parameters('applicationDnsName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/dnszones', variables('dnsZoneName'))]"
+            ],
+            "properties": {
+                "TTL": 3600,
+                "CNAMERecord": {
+                    "cname": "[concat(parameters('applicationDnsName'),'-do2019-tm.trafficmanager.net')]"
+                },
+                "targetResource": {}
+            }
+        }
+    ]
+}

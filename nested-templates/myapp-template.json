@@ -472,7 +472,7 @@
                 "profileStatus": "Enabled",
                 "trafficRoutingMethod": "Weighted",
                 "dnsConfig": {
-                    "relativeName": "[variables('trafficManagerName')]",
+                    "relativeName": "[concat(parameters('applicationDnsName'),'-do2019-tm')]",
                     "ttl": 60
                 },
                 "monitorConfig": {
