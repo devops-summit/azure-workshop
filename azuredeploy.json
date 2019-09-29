@@ -53,7 +53,8 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2016-02-01",
-            "name": "automation",
+            "name": "dns",
+            "resourceGroup": "dnsdomains-rg",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
