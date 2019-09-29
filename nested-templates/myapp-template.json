@@ -606,9 +606,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                    "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/apache2-on-ubuntu-vm/install_apache.sh"
+                    "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-we-01.sh"
                     ],
-                "commandToExecute": "sh install_apache.sh"
+                "commandToExecute": "sh install-apache-we-01.sh"
                 }
             }
         },
@@ -627,9 +627,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                    "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/apache2-on-ubuntu-vm/install_apache.sh"
+                        "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-ne-01.sh"
                     ],
-                "commandToExecute": "sh install_apache.sh"
+                "commandToExecute": "sh install-apache-ne-01.sh"
                 }
             }
         }

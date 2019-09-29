@@ -20,7 +20,7 @@
         }
     },
     "variables": {
-      "templateLocationUri": "",
+      "templateLocationUri": "https://raw.githubusercontent.com/devops-summit/azure-workshop/master",
       "nestedTemplates": {
         "myapp": "[concat(variables('templateLocationUri'), '/nested-templates/myapp-template.json')]",
         "dns": "[concat(variables('templateLocationUri'), '/nested-templates/dns-template.json')]"
