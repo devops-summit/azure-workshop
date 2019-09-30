@@ -840,9 +840,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                    "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-we-01.sh"
+                    "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache.sh"
                     ],
-                "commandToExecute": "sh install-apache-we-01.sh"
+                "commandToExecute": "[concat('sh install-apache.sh ', variables('vmLoc1Prefix'),'-01')]"
                 }
             }
         },
@@ -861,9 +861,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                    "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-we-02.sh"
+                    "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache.sh"
                     ],
-                "commandToExecute": "sh install-apache-we-02.sh"
+                "commandToExecute": "[concat('sh install-apache.sh ', variables('vmLoc1Prefix'),'-02')]"
                 }
             }
         },
@@ -882,9 +882,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-ne-01.sh"
+                        "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache.sh"
                     ],
-                "commandToExecute": "sh install-apache-ne-01.sh"
+                "commandToExecute": "[concat('sh install-apache.sh ', variables('vmLoc2Prefix'),'-01')]"
                 }
             }
         },
@@ -903,9 +903,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-ne-02.sh"
+                        "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache.sh"
                     ],
-                "commandToExecute": "sh install-apache-ne-02.sh"
+                "commandToExecute": "[concat('sh install-apache.sh ', variables('vmLoc2Prefix'),'-02')]"
                 }
             }
         }
