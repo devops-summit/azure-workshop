@@ -272,6 +272,66 @@
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
+            "name": "[concat(variables('vmLoc1Prefix'),'-02')]",
+            "location": "[variables('location1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc1Prefix'),'-02-nic'))]",
+                "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc1Name'))]"
+            ],
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc1Name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_B1s"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(variables('vmLoc1Prefix'),'-02-osdisk')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "StandardSSD_LRS"
+                        },
+                        "diskSizeGB": 30
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('vmLoc1Prefix'),'-02')]",
+                    "adminUsername": "[parameters('virtualMachineAdminUsername')]",
+                    "adminPassword": "[parameters('virtualMachineAdminPassword')]",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false,
+                        "provisionVMAgent": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc1Prefix'),'-02-nic'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": false
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-03-01",
             "name": "[concat(variables('vmLoc2Prefix'),'-01')]",
             "location": "[variables('location2')]",
             "dependsOn": [
@@ -319,6 +379,66 @@
                     "networkInterfaces": [
                         {
                             "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc2Prefix'),'-01-nic'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": false
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-03-01",
+            "name": "[concat(variables('vmLoc2Prefix'),'-02')]",
+            "location": "[variables('location2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc2Prefix'),'-02-nic'))]",
+                "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc2Name'))]"
+            ],
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc2Name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_B1s"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(variables('vmLoc2Prefix'),'-02-osdisk')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "StandardSSD_LRS"
+                        },
+                        "diskSizeGB": 30
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('vmLoc2Prefix'),'-02')]",
+                    "adminUsername": "[parameters('virtualMachineAdminUsername')]",
+                    "adminPassword": "[parameters('virtualMachineAdminPassword')]",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false,
+                        "provisionVMAgent": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc2Prefix'),'-02-nic'))]"
                         }
                     ]
                 },
@@ -591,7 +711,85 @@
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2019-07-01",
+            "name": "[concat(variables('vmLoc1Prefix'),'-02-nic')]",
+            "location": "[variables('location1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetLoc1Name'), 'subnet01')]",
+                "[resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgLoc1Name'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetLoc1Name'), 'subnet01')]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4",
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/lb01be')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgLoc1Name'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2019-07-01",
             "name": "[concat(variables('vmLoc2Prefix'),'-01-nic')]",
+            "location": "[variables('location2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetLoc2Name'), 'subnet01')]",
+                "[resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgLoc2Name'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetLoc2Name'), 'subnet01')]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4",
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/lb02be')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgLoc2Name'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(variables('vmLoc2Prefix'),'-02-nic')]",
             "location": "[variables('location2')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetLoc2Name'), 'subnet01')]",
@@ -650,6 +848,27 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(variables('vmLoc1Prefix'),'-02','/newuserscript')]",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[variables('location1')]",
+            "dependsOn": [
+              "[concat('Microsoft.Compute/virtualMachines/', variables('vmLoc1Prefix'),'-02')]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                    "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-we-02.sh"
+                    ],
+                "commandToExecute": "sh install-apache-we-02.sh"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
             "name": "[concat(variables('vmLoc2Prefix'),'-01','/newuserscript')]",
             "apiVersion": "2015-05-01-preview",
             "location": "[variables('location2')]",
@@ -666,6 +885,27 @@
                         "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-ne-01.sh"
                     ],
                 "commandToExecute": "sh install-apache-ne-01.sh"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(variables('vmLoc2Prefix'),'-02','/newuserscript')]",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[variables('location2')]",
+            "dependsOn": [
+              "[concat('Microsoft.Compute/virtualMachines/', variables('vmLoc2Prefix'),'-02')]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "https://raw.githubusercontent.com/devops-summit/azure-workshop/master/install-apache-ne-02.sh"
+                    ],
+                "commandToExecute": "sh install-apache-ne-02.sh"
                 }
             }
         }
