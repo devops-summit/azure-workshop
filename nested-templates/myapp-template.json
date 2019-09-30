@@ -491,7 +491,7 @@
                             "endpointStatus": "Enabled",
                             "targetResourceId": "[resourceId('Microsoft.Network/publicIPAddresses', variables('pipLb1Name'))]",
                             "target": "[concat(parameters('applicationDnsName'), '-', variables('lbLoc1Name'), '.', variables('location1'), '.cloudapp.azure.com')]",
-                            "weight": 100,
+                            "weight": 50,
                             "priority": 1,
                             "endpointLocation": "[variables('location1')]"
                         }
