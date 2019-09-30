@@ -68,6 +68,8 @@
         ],
         "vnetLoc1Name": "myapp-we-vnet",
         "vnetLoc2Name": "myapp-ne-vnet",
+        "avSetLoc1Name": "myapp-we-vm-avset",
+        "avSetLoc2Name": "myapp-ne-vm-avset",
         "trafficManagerName": "myapp-tm"
     },
     "resources": [
@@ -182,14 +184,60 @@
             }
         },
         {
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2019-03-01",
+            "name": "[variables('avSetLoc1Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc1Prefix'),'-01'))]"
+            ],
+            "sku": {
+                "name": "Aligned"
+            },
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 2,
+                "virtualMachines": [
+                    {
+                        "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc1Prefix'),'-01'))]"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2019-03-01",
+            "name": "[variables('avSetLoc2Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc2Prefix'),'-01'))]"
+            ],
+            "sku": {
+                "name": "Aligned"
+            },
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 2,
+                "virtualMachines": [
+                    {
+                        "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc2Prefix'),'-01'))]"
+                    }
+                ]
+            }
+        },
+        {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-03-01",
             "name": "[concat(variables('vmLoc1Prefix'),'-01')]",
             "location": "[variables('location1')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc1Prefix'),'-01-nic'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc1Prefix'),'-01-nic'))]",
+                "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc1Name'))]"
             ],
             "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc1Name'))]"
+                },
                 "hardwareProfile": {
                     "vmSize": "Standard_B1s"
                 },
@@ -243,9 +291,13 @@
             "name": "[concat(variables('vmLoc2Prefix'),'-01')]",
             "location": "[variables('location2')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc2Prefix'),'-01-nic'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmLoc2Prefix'),'-01-nic'))]",
+                "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc2Name'))]"
             ],
             "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc1Name'))]"
+                },
                 "hardwareProfile": {
                     "vmSize": "Standard_B1s"
                 },
