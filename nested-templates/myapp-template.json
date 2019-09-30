@@ -296,7 +296,7 @@
             ],
             "properties": {
                 "availabilitySet": {
-                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc1Name'))]"
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', variables('avSetLoc2Name'))]"
                 },
                 "hardwareProfile": {
                     "vmSize": "Standard_B1s"
