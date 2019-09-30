@@ -187,42 +187,28 @@
             "type": "Microsoft.Compute/availabilitySets",
             "apiVersion": "2019-03-01",
             "name": "[variables('avSetLoc1Name')]",
-            "location": "westeurope",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc1Prefix'),'-01'))]"
-            ],
+            "location": "[variables('location1')]",
             "sku": {
                 "name": "Aligned"
             },
             "properties": {
                 "platformUpdateDomainCount": 5,
                 "platformFaultDomainCount": 2,
-                "virtualMachines": [
-                    {
-                        "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc1Prefix'),'-01'))]"
-                    }
-                ]
+                "managed": "true"
             }
         },
         {
             "type": "Microsoft.Compute/availabilitySets",
             "apiVersion": "2019-03-01",
             "name": "[variables('avSetLoc2Name')]",
-            "location": "westeurope",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc2Prefix'),'-01'))]"
-            ],
+            "location": "[variables('location2')]",
             "sku": {
                 "name": "Aligned"
             },
             "properties": {
                 "platformUpdateDomainCount": 5,
                 "platformFaultDomainCount": 2,
-                "virtualMachines": [
-                    {
-                        "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmLoc2Prefix'),'-01'))]"
-                    }
-                ]
+                "managed": "true"
             }
         },
         {
