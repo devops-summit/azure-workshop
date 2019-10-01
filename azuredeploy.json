@@ -53,7 +53,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
-            "name": "[concat('dns', parameters('applicationDnsName'))]",,
+            "name": "[concat('dns', parameters('applicationDnsName'))]",
             "resourceGroup": "dnsdomains-rg",
             "properties": {
                 "mode": "Incremental",
