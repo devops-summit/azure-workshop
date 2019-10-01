@@ -30,7 +30,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
-            "name": "myapp",
+            "name": "[concat('myapp', parameters('applicationDnsName'))]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -53,7 +53,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
-            "name": "dns",
+            "name": "[concat('dns', parameters('applicationDnsName'))]",,
             "resourceGroup": "dnsdomains-rg",
             "properties": {
                 "mode": "Incremental",
