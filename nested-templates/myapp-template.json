@@ -482,7 +482,7 @@
                 ],
                 "loadBalancingRules": [
                     {
-                        "name": "[concat(variables('lbLoc1Name'), 'rule')]",
+                        "name": "[concat(variables('lbLoc1Name'), '-rule')]",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/frontendIPConfigurations/LoadBalancerFrontEnd')]"
@@ -551,7 +551,7 @@
                 ],
                 "loadBalancingRules": [
                     {
-                        "name": "[concat(variables('lbLoc2Name'), 'rule')]",
+                        "name": "[concat(variables('lbLoc2Name'), '-rule')]",
                         "properties": {
                             "frontendIPConfiguration": {
                                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/frontendIPConfigurations/LoadBalancerFrontEnd')]"
