@@ -24,7 +24,8 @@
       "nestedTemplates": {
         "myapp": "[concat(variables('templateLocationUri'), '/nested-templates/myapp-template.json')]",
         "dns": "[concat(variables('templateLocationUri'), '/nested-templates/dns-template.json')]"
-      }
+      },
+      "dnsResourceGroup": "dnsdomains-rg"
     },
     "resources": [
         {
@@ -54,7 +55,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2017-05-10",
             "name": "[concat('dns-', parameters('applicationDnsName'))]",
-            "resourceGroup": "dnsdomains-rg",
+            "resourceGroup": "[variables('dnsResourceGroup')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
