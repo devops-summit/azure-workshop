@@ -476,7 +476,7 @@
                 ],
                 "backendAddressPools": [
                     {
-                        "name": "lb01be",
+                        "name": "[concat(variables('lbLoc1Name'),'-be')]",
                         "properties": {}
                     }
                 ],
@@ -495,17 +495,17 @@
                             "enableTcpReset": false,
                             "loadDistribution": "Default",
                             "backendAddressPool": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/lb01be')]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/', variables('lbLoc1Name'), '-be')]"
                             },
                             "probe": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), concat('/probes/', variables('lbLoc1Name'), 'hp'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), concat('/probes/', variables('lbLoc1Name'), '-hp'))]"
                             }
                         }
                     }
                 ],
                 "probes": [
                     {
-                        "name": "[concat(variables('lbLoc1Name'), 'hp')]",
+                        "name": "[concat(variables('lbLoc1Name'), '-hp')]",
                         "properties": {
                             "protocol": "Tcp",
                             "port": 80,
@@ -545,7 +545,7 @@
                 ],
                 "backendAddressPools": [
                     {
-                        "name": "lb02be",
+                        "name": "[concat(variables('lbLoc1Name'),'-be')]",
                         "properties": {}
                     }
                 ],
@@ -564,17 +564,17 @@
                             "enableTcpReset": false,
                             "loadDistribution": "Default",
                             "backendAddressPool": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/lb02be')]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/', variables('lbLoc2Name'), '-be')]"
                             },
                             "probe": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), concat('/probes/', variables('lbLoc2Name'), 'hp'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), concat('/probes/', variables('lbLoc2Name'), '-hp'))]"
                             }
                         }
                     }
                 ],
                 "probes": [
                     {
-                        "name": "[concat(variables('lbLoc2Name'), 'hp')]",
+                        "name": "[concat(variables('lbLoc2Name'), '-hp')]",
                         "properties": {
                             "protocol": "Tcp",
                             "port": 80,
@@ -692,7 +692,7 @@
                             "privateIPAddressVersion": "IPv4",
                             "loadBalancerBackendAddressPools": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/lb01be')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/', variables('lbLoc1Name'), '-be')]"
                                 }
                             ]
                         }
@@ -731,7 +731,7 @@
                             "privateIPAddressVersion": "IPv4",
                             "loadBalancerBackendAddressPools": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/lb01be')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc1Name')), '/backendAddressPools/', variables('lbLoc1Name'), '-be')]"
                                 }
                             ]
                         }
@@ -770,7 +770,7 @@
                             "privateIPAddressVersion": "IPv4",
                             "loadBalancerBackendAddressPools": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/lb02be')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/', variables('lbLoc2Name'), '-be')]"
                                 }
                             ]
                         }
@@ -809,7 +809,7 @@
                             "privateIPAddressVersion": "IPv4",
                             "loadBalancerBackendAddressPools": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/lb02be')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', variables('lbLoc2Name')), '/backendAddressPools/', variables('lbLoc2Name'), '-be')]"
                                 }
                             ]
                         }
