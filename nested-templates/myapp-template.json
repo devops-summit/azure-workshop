@@ -545,7 +545,7 @@
                 ],
                 "backendAddressPools": [
                     {
-                        "name": "[concat(variables('lbLoc1Name'),'-be')]",
+                        "name": "[concat(variables('lbLoc2Name'),'-be')]",
                         "properties": {}
                     }
                 ],
